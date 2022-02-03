@@ -2,11 +2,11 @@ import amqp from 'amqplib';
 import { errorAndExit, log } from '../workerTemplate.js';
 import { randomUUID } from 'crypto'
 
-const workerQueue = process.env.WORKERQUEUE;
-const resultQueue = process.env.RESULTSQUEUE;
-const rabbitHost = process.env.RABBITHOST;
-const rabbitUser = process.env.RABBITUSER;
-const rabbitPass = process.env.RABBITPASS;
+const workerQueue = process.env.WORKERQUEUE || 'dispatcher';
+const resultQueue = process.env.RESULTSQUEUE || 'results';
+const rabbitHost = process.env.RABBITHOST || 'localhost';
+const rabbitUser = process.env.RABBITUSER || 'rabbit';
+const rabbitPass = process.env.RABBITPASS || 'rabbit';
 const rabbitHeartbeat = process.env.RABBITHEARTBEAT || 60;
 
 let channel;
@@ -22,7 +22,7 @@ let channel;
  * the specific task configuration via the `outputs` array.
  *
  * @example job message content:
- * 
+ *
   {
     "job": [
       {
