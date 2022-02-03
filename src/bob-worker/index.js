@@ -44,6 +44,12 @@ const rabbitPass = process.env.RABBITPASS || 'rabbit';
 //   ]
 // }
 
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 /**
  * TODO
  * @param {Object} workerJob The job object
@@ -53,6 +59,8 @@ const bobWorker = async(workerJob, inputs) => {
 
   console.log('bob-worker');
   console.log('inputs', inputs);
+
+  await sleep(1500);
 
   await new Promise((resolve, reject) => {
     resolve();
